@@ -6,7 +6,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 app = flask.Flask(__name__, template_folder='templates')
 
-df2 = pd.read_csv('./model/tmdb.csv')
+df2 = pd.read_csv('movies.csv')
 
 count = CountVectorizer(stop_words='english')
 count_matrix = count.fit_transform(df2['soup'])
@@ -24,11 +24,11 @@ def get_recommendations(title):
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
     sim_scores = sim_scores[1:11]
     movie_indices = [i[0] for i in sim_scores]
-    tit = df2['title'].iloc[movie_indices]
-    dat = df2['release_date'].iloc[movie_indices]
+    title = df2['title'].iloc[movie_indices]
+    date = df2['release_date'].iloc[movie_indices]
     return_df = pd.DataFrame(columns=['Title','Year'])
-    return_df['Title'] = tit
-    return_df['Year'] = dat
+    return_df['Title'] = title
+    return_df['Year'] = date
     return return_df
 
 # Set up the main route
@@ -43,7 +43,7 @@ def main():
         m_name = m_name.title()
 #        check = difflib.get_close_matches(m_name,all_titles,cutout=0.50,n=1)
         if m_name not in all_titles:
-            return(flask.render_template('negative.html',name=m_name))
+            return(flask.render_template('unretrieved.html',name=m_name))
         else:
             result_final = get_recommendations(m_name)
             names = []
@@ -52,7 +52,7 @@ def main():
                 names.append(result_final.iloc[i][0])
                 dates.append(result_final.iloc[i][1])
 
-            return flask.render_template('positive.html',movie_names=names,movie_date=dates,search_name=m_name)
+            return flask.render_template('retrieved.html',movie_names=names,movie_date=dates,search_name=m_name)
 
 if __name__ == '__main__':
     app.run()
