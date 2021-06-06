@@ -7,7 +7,7 @@ import flasgger
 from flasgger import Swagger
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 data = pd.read_csv('movies.csv')
 
