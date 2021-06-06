@@ -35,7 +35,7 @@ def recommendations(title):
 
 def main():
     if flask.request.method == 'GET':
-        return(flask.render_template('home.html'))
+        return(flask.render_template('index.html'))
             
     if flask.request.method == 'POST':
         m = flask.request.form['movie_name']
@@ -47,7 +47,7 @@ def main():
             retrieved_movies = recommendations(m)
             names = []
             dates = []
-            for i in range(len(result_final)):
+            for i in range(len(retrieved_movies)):
                 names.append(retrieved_movies.iloc[i][0])
                 dates.append(retrieved_movies.iloc[i][1])
 
