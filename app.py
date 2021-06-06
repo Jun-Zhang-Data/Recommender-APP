@@ -1,13 +1,11 @@
 import flask
-from flask import Flask
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-import flasgger
-from flasgger import Swagger
 
 
-app = Flask(__name__, template_folder='templates')
+
+app = flask.Flask(__name__, template_folder='templates')
 
 data = pd.read_csv('movies.csv')
 
