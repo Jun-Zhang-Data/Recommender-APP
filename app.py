@@ -1,21 +1,20 @@
 import flask
-import difflib
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-app = flask.Flask(__name__, template_folder='templates')
+app = flask.Flask(__name__)
 
-df2 = pd.read_csv('movies.csv')
+data = pd.read_csv('movies.csv')
 
 count = CountVectorizer(stop_words='english')
-count_matrix = count.fit_transform(df2['soup'])
+count_matrix = count.fit_transform(data['soup'])
 
 cosine_sim2 = cosine_similarity(count_matrix, count_matrix)
 
-df2 = df2.reset_index()
-indices = pd.Series(df2.index, index=df2['title'])
-all_titles = [df2['title'][i] for i in range(len(df2['title']))]
+data = data.reset_index()
+indices = pd.Series(data.index, index=data['title'])
+all_titles = [data['title'][i] for i in range(len(data['title']))]
 
 def get_recommendations(title):
     cosine_sim = cosine_similarity(count_matrix, count_matrix)
@@ -24,33 +23,33 @@ def get_recommendations(title):
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
     sim_scores = sim_scores[1:11]
     movie_indices = [i[0] for i in sim_scores]
-    title = df2['title'].iloc[movie_indices]
-    date = df2['release_date'].iloc[movie_indices]
-    return_df = pd.DataFrame(columns=['Title','Year'])
-    return_df['Title'] = title
-    return_df['Year'] = date
-    return return_df
+    movie_title = data['title'].iloc[movie_indices]
+    movie_date = data['release_date'].iloc[movie_indices]
+    retrieved_data = pd.DataFrame(columns=['Title','Year'])
+    retrieved_data['Title'] = movie_title
+    retrieved_data['Year'] = movie_date
+    return retrieved_data
 
-# Set up the main route
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+def home():
+    return render_template('index.html')
 
-def main():
-    if flask.request.method == 'GET':
-        return(flask.render_template('index.html'))
-            
+
+@app.route('/recommend',methods=['POST'])
+def recommend():
     if flask.request.method == 'POST':
         m_name = flask.request.form['movie_name']
         m_name = m_name.title()
-#        check = difflib.get_close_matches(m_name,all_titles,cutout=0.50,n=1)
+       
         if m_name not in all_titles:
             return(flask.render_template('unretrieved.html',name=m_name))
         else:
-            result_final = get_recommendations(m_name)
-            names = []
-            dates = []
+            retrieved_movies = get_recommendations(m_name)
+            movie_names = []
+            movie_dates = []
             for i in range(len(result_final)):
-                names.append(result_final.iloc[i][0])
-                dates.append(result_final.iloc[i][1])
+                movie_names.append(retrieved_movies.iloc[i][0])
+                movie_dates.append(retrieved_movies.iloc[i][1])
 
             return flask.render_template('retrieved.html',movie_names=names,movie_date=dates,search_name=m_name)
 
