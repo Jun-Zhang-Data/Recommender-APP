@@ -286,13 +286,15 @@
                             <div class="clip"><div class="shadow"><span class="digit firstDigit"></span></div></div>
                             <div class="msg">OOPS!<span class="triangle"></span></div>
                         </div>
-                        <h2 class="h1">Sorry! Misspelled or not available in the movie bank.</h2>
-                       
+                        <h2 class="h1">Sorry! Page not found.</h2>
+                        <ol>
+                            <li>Misspelled or not available in the database.</li>
+                        </ol>
                         <input type="hidden" value="{{ name }}" id="movie_name" oninput="checkSimilarity()" readonly/>
                         <hr>
                         
                     </div>
-                    <a class="button" onClick="goBack()"><i class="fas fa-home"></i>Try Again.</a>
+                    <a class="button" onClick="goBack()"><i class="fas fa-home"></i>Go Back to Home Page &amp; Try Again.</a>
                 </div>
             </div>
 </body>
