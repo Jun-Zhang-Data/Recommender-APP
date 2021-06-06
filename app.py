@@ -25,11 +25,11 @@ def recommendations(title):
     similarity_scores = sorted(similarity_scores, key=lambda x: x[1], reverse=True)
     similarity_scores = similarity_scores[1:11]
     movie_indices = [i[0] for i in similarity_scores]
-    movie_title = data['title'].iloc[movie_indices]
-    movie_date = data['release_date'].iloc[movie_indices]
+    title = data['title'].iloc[movie_indices]
+    date = data['release_date'].iloc[movie_indices]
     retrieved_data = pd.DataFrame(columns=['Title','Date'])
-    retrieved_data['Title'] = movie_title
-    retrieved_data['Date'] = movie_date
+    retrieved_data['Title'] = title
+    retrieved_data['Date'] = date
     return retrieved_data
 
 @app.route('/', methods=['GET', 'POST'])
