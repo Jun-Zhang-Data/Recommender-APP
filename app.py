@@ -40,7 +40,7 @@ def main():
             
     if flask.request.method == 'POST':
         m = flask.request.form['movie_name']
-        m = m_name.title()
+        m = m.title()
 #        check = difflib.get_close_matches(m_name,all_titles,cutout=0.50,n=1)
         if m not in all_titles:
             return(flask.render_template('unretrieved.html',name=m))
