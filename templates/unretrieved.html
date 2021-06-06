@@ -286,14 +286,14 @@
                             <div class="clip"><div class="shadow"><span class="digit firstDigit"></span></div></div>
                             <div class="msg">OOPS!!!<span class="triangle"></span></div>
                         </div>
-                        <h2 class="h1">Sorry! Page not found.</h2>
+                        <h2 class="h1">Sorry! Page not found. Possible reason(s):</h2>
                         <ol>
-                            <li>misspelled or not available</li>
-                            
+                            <li>Misspelled input. (Check Suggestions below)</li>
+                            <li>The movie name do not exists in the database.</li>
                         </ol>
                         <input type="hidden" value="{{ name }}" id="movie_name" oninput="checkSimilarity()" readonly/>
                         <hr>
-                        <p>Is this what you meant?</p>
+                        <p>Did you mean?</p>
                         <span id="suggestions"></span>
                     </div>
                     <a class="button" onClick="goBack()"><i class="fas fa-home"></i> Go Back to Home Page &amp; Try Again.</a>
