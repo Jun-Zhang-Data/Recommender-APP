@@ -316,7 +316,7 @@ function checkSimilarity(){
         var str2 = all_titles[i];
         var score = similarity(str1, str2);
         if(score>0.50){
-            filtered_names.push(str2+'<br />');
+            filtered_names.push(str2);
         }
     }
     if(filtered_names.length<1){
