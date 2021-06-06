@@ -284,19 +284,15 @@
                             <div class="clip"><div class="shadow"><span class="digit thirdDigit"></span></div></div>
                             <div class="clip"><div class="shadow"><span class="digit secondDigit"></span></div></div>
                             <div class="clip"><div class="shadow"><span class="digit firstDigit"></span></div></div>
-                            <div class="msg">OH!<span class="triangle"></span></div>
+                            <div class="msg">OOPS!<span class="triangle"></span></div>
                         </div>
-                        <h2 class="h1">Sorry! Page not found. Possible reason(s):</h2>
-                        <ol>
-                            <li>Misspelled input. (Check Suggestions below)</li>
-                            <li>The movie name do not exists in the database.</li>
-                        </ol>
+                        <h2 class="h1">Sorry! Misspelled or not available in the movie bank.</h2>
+                       
                         <input type="hidden" value="{{ name }}" id="movie_name" oninput="checkSimilarity()" readonly/>
                         <hr>
-                        <p>Did you mean?</p>
-                        <span id="suggestions"></span>
+                        
                     </div>
-                    <a class="button" onClick="goBack()"><i class="fas fa-home"></i> Go Back to Home Page &amp; Try Again.</a>
+                    <a class="button" onClick="goBack()"><i class="fas fa-home"></i>Try Again.</a>
                 </div>
             </div>
 </body>
